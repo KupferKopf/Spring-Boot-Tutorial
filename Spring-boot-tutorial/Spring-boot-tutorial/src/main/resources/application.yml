@@ -1,0 +1,71 @@
+server:
+  port: 8080
+
+
+spring:
+  profiles:
+    active: qa
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+  application:
+    name: Spring-boot-tutorial
+  datasource:
+    password: admin
+    url: 'jdbc:mysql://localhost:3306/dcbapp'
+    username: root
+  datatasource:
+    drive-class-name: com.mysql.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+welcome:
+  message: Welcome to my Spring Project :)
+
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: qa
+  application:
+    name: Spring-boot-tutorial
+  datasource:
+    password: admin
+    url: 'jdbc:mysql://localhost:3306/dcbapp-qa'
+    username: root
+  datatasource:
+    drive-class-name: com.mysql.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+welcome:
+  message: Welcome to my Spring Project :)
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: prod
+  application:
+    name: Spring-boot-tutorial
+  datasource:
+    password: admin
+    url: 'jdbc:mysql://localhost:3306/dcbapp-prod'
+    username: root
+  datatasource:
+    drive-class-name: com.mysql.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+welcome:
+  message: Welcome to my Spring Project :)

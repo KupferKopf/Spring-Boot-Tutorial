@@ -2,6 +2,7 @@ package com.KupferKopf.Springboot.tutorial.controller;
 
 
 import com.KupferKopf.Springboot.tutorial.entity.Department;
+import com.KupferKopf.Springboot.tutorial.error.DepartmentNotFoundException;
 import com.KupferKopf.Springboot.tutorial.service.DepartmentService;
 import com.KupferKopf.Springboot.tutorial.service.DepartmentServiceImpl;
 import jakarta.validation.Valid;
@@ -37,7 +38,7 @@ public class DepartmentController {
     }
 
     @GetMapping("/departments/{id}")
-    public Department fetchDepartmentById(@PathVariable("id") Long departmentId){
+    public Department fetchDepartmentById(@PathVariable("id") Long departmentId) throws DepartmentNotFoundException {
         LOGGER.info("Inside fetchDepartmentById of DeparmentController");
         return departmentService.fetchDepartmentById(departmentId);
     }
