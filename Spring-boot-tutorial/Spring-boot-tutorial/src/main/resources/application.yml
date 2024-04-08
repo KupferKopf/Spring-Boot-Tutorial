@@ -28,6 +28,12 @@ welcome:
   message: Welcome to my Spring Project :)
 
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
 ---
 
 spring:
@@ -49,6 +55,12 @@ spring:
 welcome:
   message: Welcome to my Spring Project :)
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude: "env,beans"
 ---
 
 spring:
