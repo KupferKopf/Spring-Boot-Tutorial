@@ -7,6 +7,7 @@ import com.KupferKopf.Springboot.tutorial.repository.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -34,18 +35,24 @@ public class DepartmentServiceImpl implements DepartmentService{
         if(!department.isPresent()){
             throw new DepartmentNotFoundException("There is no Department with that ID");
         }
-
         return department.get();
     }
 
     @Override
-    public void deleteDepartmentById(Long departmentId) {
-        departmentRepository.deleteById(departmentId);
+    public void deleteDepartmentById(Long departmentId) throws DepartmentNotFoundException{
+        if(fetchDepartmentById(departmentId) != null){
+            departmentRepository.deleteById(departmentId);
+        }
+        //doesn't need an else because if fetchDepartmentById doesn't find it an exception will be thrown
     }
 
     @Override
-    public Department updateDepartment(Long departmentId, Department department) {
+    public Department updateDepartment(Long departmentId, Department department) throws DepartmentNotFoundException {
         Department departmentDB = departmentRepository.findById(departmentId).get();
+
+        if(departmentDB == null){
+            throw new DepartmentNotFoundException("There is no Department with that ID, so it can not be updated");
+        }
 
         if(Objects.nonNull(department.getDepartmentName()) &&
         !"".equalsIgnoreCase(department.getDepartmentName())) {
@@ -66,8 +73,14 @@ public class DepartmentServiceImpl implements DepartmentService{
     }
 
     @Override
-    public Department fetchDepartmentByName(String departmentName) {
-        return departmentRepository.findByDepartmentNameIgnoreCase(departmentName);
+    public Department fetchDepartmentByName(String departmentName) throws DepartmentNotFoundException{
+        Department department = departmentRepository.findByDepartmentNameIgnoreCase(departmentName);
+
+        if(department != null){
+            return department;
+        }else{
+            throw new DepartmentNotFoundException("There is no Department with that Name");
+        }
     }
 
 

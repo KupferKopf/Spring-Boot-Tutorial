@@ -1,6 +1,7 @@
 package com.KupferKopf.Springboot.tutorial.service;
 
 import com.KupferKopf.Springboot.tutorial.entity.Department;
+import com.KupferKopf.Springboot.tutorial.error.DepartmentNotFoundException;
 import com.KupferKopf.Springboot.tutorial.repository.DepartmentRepository;
 import org.junit.jupiter.api.*;
 import org.mockito.Mockito;
@@ -38,7 +39,7 @@ class DepartmentServiceTest {
     @Test
     @DisplayName("Get Data based on Valida Department Name")
     @Disabled
-    public void whenValidDepartmentName_thenDepartmentShouldBeFound(){
+    public void whenValidDepartmentName_thenDepartmentShouldBeFound() throws DepartmentNotFoundException {
         String departmentName = "IT";
         Department found = departmentService.fetchDepartmentByName(departmentName);
 
